@@ -1,0 +1,77 @@
+﻿<Window        
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"        
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+    xmlns:Controls="clr-namespace:MergedProgram.Controls" 
+    x:Class="HabitApp.MainWindow"
+    SnapsToDevicePixels="True"
+    Title="HabitApp Desktop" 
+    MinHeight="600" MinWidth="600"
+    Height="600" Width="800"
+    WindowStartupLocation="CenterScreen"
+    SizeChanged="Window_SizeChanged"  
+    AllowDrop="True" 
+    KeyDown="Window_KeyDown" Loaded="Window_Loaded">
+    
+    <Grid>        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Content="Open a photo" Margin="12,12,12,3" Height="22" Click="OpenPhoto_Button_Click"/>
+
+        <GroupBox Grid.Row="1" Header="Photo" Margin="12,3,12,3" Name="photo_GroupBox">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Controls:Graphics_Canvas Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="6,6,6,3" x:Name="imageCanvas" ClipToBounds="True"
+                                          Drop="ImageCanvas_Drop"/>
+                
+                <TextBlock Grid.Column="0" Grid.Row="1" Width="145" Margin="6,3,3,3" Name="bwCutOff_TextBlock">Black/white cut-off:</TextBlock>
+                <Slider Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="3,3,6,3" Name="bwCutOff_Slider" ValueChanged="BWCutOff_Slider_ValueChanged" PreviewMouseUp="BwCutOff_Slider_PreviewMouseUp"
+                        Maximum="254" SmallChange="1" Minimum="1" PreviewKeyUp="BwCutOff_Slider_PreviewKeyUp"/>
+
+                <RadioButton Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" Content="Show original image" Margin="6,3,3,6" Name="showOriginalImage_RadioButton" IsChecked="True"
+                             Style="{StaticResource {x:Type ToggleButton}}" Checked="ImageDisplay_RadioButton_Checked"/>
+                <RadioButton Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Content="Show coverage image" Margin="3,3,3,6" Name="showTwoColourImage_RadioButton" 
+                             Style="{StaticResource {x:Type ToggleButton}}" Checked="ImageDisplay_RadioButton_Checked"/>
+
+                <TextBlock Grid.Column="2" Grid.Row="2" Margin="3,3,3,6">Display preference:</TextBlock>
+                <ComboBox Grid.Column="3" Grid.Row="2" Margin="3,3,6,6" Name="displayPref_ComboBox" VerticalContentAlignment="Center"
+                          SelectedIndex="0" SelectionChanged="DisplyPref_ComboBox_SelectionChanged">
+                    <ComboBoxItem>Black/white</ComboBoxItem>
+                    <ComboBoxItem>Black/colour</ComboBoxItem>
+                    <ComboBoxItem>Colour/white</ComboBoxItem>
+                </ComboBox>
+
+            </Grid>            
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Results" Margin="12,3,12,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Margin="6,6,3,6">Coverage:</TextBlock>
+                <TextBlock Grid.Column="1" Margin="3,6,3,6" Name="results_TextBlock">-</TextBlock>
+                <Button Grid.Column="2" Margin="3,6,6,6" Width="130" Height="22" Click="SaveCoverageImage_Button_Click">Save coverage image</Button>
+                
+            </Grid>            
+        </GroupBox>
+
+    </Grid>
+</Window>
